@@ -1,0 +1,60 @@
+name: Build
+
+on:
+    push:
+    pull_request:
+        types: [opened, synchronize, edited, reopened]
+    release:
+        types: [created]
+    schedule:
+        -
+            cron: "0 1 * * 6" # Run at 1am every Saturday
+
+jobs:
+    test:
+        name: PHP ${{ matrix.php-version }} + Symfony ${{ matrix.symfony-version }}
+        runs-on: ubuntu-20.04
+        continue-on-error: false
+        strategy:
+            fail-fast: false
+            matrix:
+                php-version:
+                    - '7.4'
+                    - '8.0'
+                    - '8.1'
+                symfony-version:
+                    - '4.4.*'
+                    - '5.3.*'
+                    - '5.4.*'
+                    - '6.0.*'
+                exclude:
+                    - php-version: '7.4'
+                      symfony-version: '6.0.*'
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  coverage: none
+                  ini-values: "memory_limit=-1"
+                  php-version: ${{ matrix.php-version }}
+                  tools: composer:v2, flex
+
+            - name: Validate composer.json
+              run: composer validate --strict
+
+            - name: Install dependencies
+              run: composer install --prefer-dist --no-progress
+              env:
+                  SYMFONY_REQUIRE: "${{ matrix.symfony-version }}"
+
+            - name: Run coding standard
+              run: vendor/bin/ecs check --ansi --no-progress-bar src tests
+
+            - name: Run Psalm
+              run: vendor/bin/psalm src --no-progress --php-version="${{ matrix.php-version }}"
+
+            - name: Run tests
+              run: composer test

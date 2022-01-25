@@ -1,0 +1,48 @@
+includes:
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+    reportUnmatchedIgnoredErrors: false
+
+    excludes_analyse:
+        - %currentWorkingDirectory%/src/Bundle/Controller/ControllerTrait.php
+        - %currentWorkingDirectory%/src/Bundle/DependencyInjection/Configuration.php
+        - %currentWorkingDirectory%/src/Bundle/DependencyInjection/PagerfantaConfiguration.php
+        - %currentWorkingDirectory%/src/Bundle/DependencyInjection/Driver/Doctrine/DoctrineODMDriver.php
+        - %currentWorkingDirectory%/src/Bundle/DependencyInjection/Driver/Doctrine/DoctrinePHPCRDriver.php
+        - %currentWorkingDirectory%/src/Bundle/Doctrine/ODM/*
+        - %currentWorkingDirectory%/src/Bundle/EventListener/ODM*
+        - %currentWorkingDirectory%/src/Bundle/Routing/ResourceLoader.php
+        - %currentWorkingDirectory%/src/Bundle/Routing/Configuration.php
+        - %currentWorkingDirectory%/src/Bundle/spec/*
+        - %currentWorkingDirectory%/src/Bundle/test/*
+        - %currentWorkingDirectory%/src/Bundle/Tests/*
+        - %currentWorkingDirectory%/src/Component/spec/*
+        - %currentWorkingDirectory%/src/Component/vendor/*
+
+    ignoreErrors:
+        - '/Class Doctrine\\Bundle\\MongoDBBundle/'
+        - '/Class Doctrine\\Bundle\\PHPCRBundle/'
+        - '/Class Doctrine\\Common\\Persistence\\ObjectManager not found\./'
+        - '/Class Symfony\\Component\\ExpressionLanguage\\ParserCache\\ParserCacheInterface not found/'
+        - '/Instantiated class Symfony\\Component\\ExpressionLanguage\\ParserCache\\ParserCacheAdapter not found/'
+        - '/Method Sylius\\Bundle\\ResourceBundle\\Controller\\ResourcesCollectionProvider::get\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ResourceBundle\\Controller\\ResourcesCollectionProviderInterface::get\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ResourceBundle\\Controller\\ResourcesResolver::getResources\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ResourceBundle\\Controller\\ResourcesResolverInterface::getResources\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ResourceBundle\\Event\\ResourceControllerEvent::stop\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ResourceBundle\\Form\\Extension\\HttpFoundation\\HttpFoundationRequestHandler::handleRequest\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ResourceBundle\\Grid\\Controller\\ResourcesResolver::getResources\(\) has no return typehint specified./'
+        - '/Method Sylius\\Component\\Resource\\Model\\ResourceInterface::getId\(\) has no return typehint specified./'
+        - '/Method Sylius\\Component\\Resource\\Model\\TimestampableInterface::setCreatedAt\(\) has no return typehint specified./'
+        - '/Method Sylius\\Component\\Resource\\Model\\TimestampableInterface::setUpdatedAt\(\) has no return typehint specified./'
+        - '/Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required\./'
+        - '/Parameter \#1 \$array[0-9]? of function array_multisort expects array, array\|int given\./'
+        - '/Parameter \#2 \$class of static method Webmozart\\Assert\\Assert::isInstanceOf\(\) expects class-string<object>, string given./'
+        - '/Unable to resolve the template type ExpectedType in call to method static method Webmozart\\Assert\\Assert::isInstanceOf\(\)/'
+        - '/is deprecated since Sylius 1\.8/'

@@ -1,0 +1,16 @@
+{% extends '@SyliusCore/Email/layout.html.twig' %}
+
+{% block subject %}
+    {{ subject }}
+{% endblock %}
+
+{% block content %}
+    {{ content }}
+
+    <hr>
+
+    Hi {{firstname}},
+    You are receiving this email because you have subscribed to {{ subject }}.
+    Netenders.
+
+{% endblock %}

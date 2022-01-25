@@ -1,0 +1,22 @@
+sylius_paypal_webhook:
+    resource: "@SyliusPayPalPlugin/Resources/config/webhook_routing.yaml"
+
+#app_admin:
+#    resource: 'routes/dev/admin_newsletter.yaml'
+#    prefix: /admin
+
+app_admin_newsletter:
+    resource: |
+        alias: app.newsletter
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        except: ['show']
+        redirect: update
+        grid: app_admin_newsletter
+        vars:
+            all:
+                subheader: app.ui.newsletter
+            index:
+                icon: 'newspapper outline'
+    type: sylius.resource
+    prefix: /admin

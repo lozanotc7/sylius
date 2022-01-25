@@ -1,0 +1,77 @@
+name: Build
+
+on:
+    push: ~
+    pull_request: ~
+    release:
+        types: [created]
+    schedule:
+        -
+            cron: "0 1 * * 6" # Run at 1am every Saturday
+
+jobs:
+    tests:
+        runs-on: ubuntu-latest
+        name: "PHP ${{ matrix.php }}${{ matrix.symfony != '' && format(', Symfony {0}', matrix.symfony) || '' }}${{ matrix.currency-bundle != '' && format(', CurrencyBundle {0}', matrix.currency-bundle) || '' }}"
+        strategy:
+            fail-fast: false
+            matrix:
+                php: [7.4, 8.0]
+                symfony: [^4.4, ^5.2]
+
+                include:
+                    -
+                        php: 7.4
+                        symfony: ""
+                        currency-bundle: "^1.7"
+        steps:
+            -
+                uses: actions/checkout@v2
+
+            -
+                name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: "${{ matrix.php }}"
+                    coverage: none
+
+            -
+                name: Restrict Symfony version
+                if: matrix.symfony != ''
+                run: |
+                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^1.10"
+                    composer config extra.symfony.require "${{ matrix.symfony }}"
+                    (cd src/Component && composer config extra.symfony.require "${{ matrix.symfony }}")
+
+            -
+                name: Require sylius/currency-bundle
+                if: matrix.currency-bundle != ''
+                run: |
+                    composer require "sylius/currency-bundle:${{ matrix.currency-bundle }}" --no-update --no-scripts
+
+            -
+                name: Install dependencies
+                run: |
+                    composer update ${{ matrix.php == '8.0' && '--ignore-platform-req=php' || '' }} --no-scripts
+                    (cd src/Component && composer update ${{ matrix.php == '8.0' && '--ignore-platform-req=php' || '' }} --no-scripts)
+
+            -
+                name: Prepare test application
+                run: |
+                    (cd src/Bundle/test && bin/console doctrine:database:drop --force -n)
+                    (cd src/Bundle/test && bin/console doctrine:database:create)
+                    (cd src/Bundle/test && bin/console doctrine:schema:create)
+
+            -
+                name: Run analysis
+                run: |
+                    composer analyse
+                    (cd src/Component && composer validate --strict)
+
+            -
+                name: Run component tests
+                run: (cd src/Component && vendor/bin/phpspec run)
+
+            -
+                name: Run bundle tests
+                run: composer test

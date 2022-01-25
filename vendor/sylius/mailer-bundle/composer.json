@@ -1,0 +1,87 @@
+{
+    "name": "sylius/mailer-bundle",
+    "type": "symfony-bundle",
+    "description": "Mailers and e-mail template management for Symfony projects.",
+    "keywords": [
+        "mailer",
+        "email",
+        "swiftmailer"
+    ],
+    "homepage": "https://sylius.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paweł Jędrzejewski",
+            "homepage": "https://pjedrzejewski.com"
+        },
+        {
+            "name": "Sylius project",
+            "homepage": "https://sylius.com"
+        },
+        {
+            "name": "Community contributions",
+            "homepage": "https://github.com/Sylius/Sylius/contributors"
+        }
+    ],
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "sylius-labs/polyfill-symfony-event-dispatcher": "^1.0",
+        "symfony/config": "^4.4 || ^5.1",
+        "symfony/dependency-injection": "^4.4 || ^5.1",
+        "symfony/framework-bundle": "^4.4 || ^5.1",
+        "symfony/http-kernel": "^4.4 || ^5.1",
+        "twig/twig": "^2.12",
+        "webmozart/assert": "^1.9"
+    },
+    "replace": {
+        "sylius/mailer": "self.version"
+    },
+    "require-dev": {
+        "matthiasnoback/symfony-dependency-injection-test": "^4.2",
+        "phpspec/phpspec": "^7.0",
+        "phpstan/phpstan": "0.12.54",
+        "phpstan/phpstan-phpunit": "0.12.16",
+        "phpstan/phpstan-webmozart-assert": "0.12.7",
+        "phpunit/phpunit": "^9.4",
+        "sylius-labs/coding-standard": "^3.2",
+        "symfony/console": "^4.4 || ^5.1",
+        "symfony/swiftmailer-bundle": "^3.1",
+        "symfony/twig-bundle": "^4.4 || ^5.1",
+        "vimeo/psalm": "4.1.1"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.6-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Sylius\\Bundle\\MailerBundle\\": "src/Bundle/",
+            "Sylius\\Component\\Mailer\\": "src/Component/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sylius\\Bundle\\MailerBundle\\spec\\": "src/Bundle/spec/",
+            "Sylius\\Component\\Mailer\\spec\\": "src/Component/spec/"
+        },
+        "classmap": [
+            "src/Bundle/test/app/AppKernel.php"
+        ]
+    },
+    "scripts": {
+        "analyse": [
+            "@composer validate --strict",
+            "vendor/bin/ecs check src",
+            "vendor/bin/phpstan analyse --ansi -c phpstan.neon -l max src",
+            "vendor/bin/psalm"
+        ],
+        "fix": [
+            "vendor/bin/ecs check src --fix"
+        ],
+        "test": [
+            "vendor/bin/phpspec run --ansi --no-interaction",
+            "vendor/bin/phpunit --colors=always"
+        ]
+    }
+}
