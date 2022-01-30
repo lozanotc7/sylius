@@ -3,16 +3,16 @@
 namespace App\Entity\Newsletter;
 
 use App\Entity\Customer\Customer;
+use App\Interfaces\Newsletter\NewsletterInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Sylius\Component\Resource\Model\ResourceInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="sylius_newsletter")
  */
-class Newsletter implements ResourceInterface
+class Newsletter implements NewsletterInterface
 {
     /**
      * @var int

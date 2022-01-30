@@ -15,5 +15,5 @@ interface NewsletterInterface extends ResourceInterface
     public function getContent(): ?string;
     public function setContent(?string $content): void;
 
-    public function getSubscribers(): ?ArrayCollection;
+    public function getSubscribers(): ?Collection;
 }
