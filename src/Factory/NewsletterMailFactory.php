@@ -40,6 +40,8 @@ final class NewsletterMailFactory
                         'subject'    => $newsletter->getSubject(),
                         'content'    => $newsletter->getContent(),
                         'firstname'  => $subscriber->getFirstName(),
+                        'customer_id' =>  $subscriber->getId(),
+                        'newsletter_id' => $newsletter->getId(),
                     ]
                 )
             );

@@ -1,0 +1,24 @@
+app_admin_newsletter:
+    resource: |
+        alias: app.newsletter
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        except: ['show']
+        redirect: update
+        grid: app_admin_newsletter
+        vars:
+            all:
+                subheader: app.ui.newsletter
+            index:
+                icon: 'newspapper outline'
+    type: sylius.resource
+    prefix: /admin
+
+newsletter_unsubscribe:
+    path: /newsletter/unsubscribed/{idCustomer}/{idNewsletter}
+    defaults: { _controller: App\Controller\NewsletterController::unsubscribeAction }
+    
+newsletter_unsubscribe_confirmation:
+    path: /newsletter/unsubscribeConfirmation/{idCustomer}/{idNewsletter}
+    defaults: { _controller: App\Controller\NewsletterController::unsubscribeConfirmationAction }
+    

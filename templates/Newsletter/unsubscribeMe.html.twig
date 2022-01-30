@@ -1,0 +1,20 @@
+{% extends '@SyliusShop/layout.html.twig' %}
+
+{% block content %}
+    <div class="ui hidden divider"></div>
+    <div class="ui grid">
+        <div class="center aligned sixteen wide column">
+            <h1 class="ui icon header">
+                {{ customer.firstName }}
+                <div class="content" id="sylius-thank-you">
+                    {{ 'sylius.newsletter.confirm.unsubscribe'|trans }}
+                </div>
+            </h1>
+            <br>
+            <a class="ui labeled icon button warning" href="{{ path('newsletter_unsubscribe', { 'idCustomer': customer.id, 'idNewsletter': newsletter.id} ) }}">
+                {{ 'sylius.newsletter.confirm.unsubscribe.text'|trans }} {{ newsletter.subject }}
+            </a>
+
+        </div>
+    </div>
+{% endblock %}

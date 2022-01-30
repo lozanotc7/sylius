@@ -12,5 +12,8 @@
     Hi {{firstname}},
     You are receiving this email because you have subscribed to {{ subject }}.
     Netenders.
-
+    You can unsubscribe from this newsletter by
+    <a href="{{ path('newsletter_unsubscribe_confirmation', { 'idCustomer': customer_id, 'idNewsletter': newsletter_id} ) }}">
+        clicking here
+    </a>.
 {% endblock %}

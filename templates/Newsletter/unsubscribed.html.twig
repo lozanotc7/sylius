@@ -1,0 +1,15 @@
+{% extends '@SyliusShop/layout.html.twig' %}
+
+{% block content %}
+    <div class="ui hidden divider"></div>
+    <div class="ui grid">
+        <div class="center aligned sixteen wide column">
+            <h1 class="ui icon header">
+                {{ customer_firstName }}
+                <div class="content" id="sylius-thank-you">
+                    {{ 'sylius.newsletter.correct.unsubscribed'|trans }}
+                </div>
+            </h1>
+        </div>
+    </div>
+{% endblock %}
