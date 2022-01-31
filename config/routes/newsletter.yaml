@@ -14,6 +14,9 @@ app_admin_newsletter:
     type: sylius.resource
     prefix: /admin
 
+admin_newsletter:
+    path: /admin/newsletters
+
 newsletter_unsubscribe:
     path: /newsletter/unsubscribed/{idCustomer}/{idNewsletter}
     defaults: { _controller: App\Controller\NewsletterController::unsubscribeAction }
