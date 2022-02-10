@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Customer as BaseCustomer;
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Currency\Model\CurrencyInterface;
+use App\Interfaces\Newsletter\NewsletterInterface;
 
 /**
  * @ORM\Entity
@@ -21,6 +22,9 @@ class Customer extends BaseCustomer
      * @var Collection|NewsletterInterface[]
      *
      * @psalm-var Collection<array-key, NewsletterInterface>
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Newsletter\Newsletter", inversedBy="subscribers")
+     * @ORM\JoinTable(name="newsletter_customer")
      */
     protected $newsletters;
 

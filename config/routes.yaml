@@ -1,2 +1,7 @@
 sylius_paypal_webhook:
     resource: "@SyliusPayPalPlugin/Resources/config/webhook_routing.yaml"
+
+#app_admin:
+#    resource: 'routes/dev/admin_newsletter.yaml'
+#    prefix: /admin
+

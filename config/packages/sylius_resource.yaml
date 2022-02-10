@@ -1,0 +1,8 @@
+#sylius_resource:
+#    resources:
+#        app.newsletter:
+#            driver: doctrine/orm
+#            classes:
+#                model: App\Entity\Newsletter\Newsletter
+#            templates: App:Newsletter
+#Sylius\Bundle\ResourceBundle\Form\Type\DefaultResourceType

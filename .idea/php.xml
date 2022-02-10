@@ -241,6 +241,13 @@
       <path value="$PROJECT_DIR$/vendor/symplify/easy-coding-standard" />
     </include_path>
   </component>
+  <component name="PhpInterpreters">
+    <interpreters>
+      <interpreter id="6c1d8f54-00c3-4a7b-93b5-6b9b88e43a55" name="Ubuntu-20.04" home="\\wsl$\Ubuntu-20.04/usr/bin/php" debugger_id="php.debugger.XDebug">
+        <remote_data INTERPRETER_PATH="/usr/bin/php" HELPERS_PATH="" INITIALIZED="false" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" DISTRIBUTION_ID="Ubuntu-20.04" />
+      </interpreter>
+    </interpreters>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
   <component name="PhpUnit">
     <phpunit_settings>

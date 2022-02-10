@@ -1,0 +1,52 @@
+services:
+    App\Entity\Newsletter\Newsletter:
+        class: App\Entity\Newsletter\Newsletter
+    
+    app.form.extension.type.customer_registration:
+        class: App\Form\Extension\MyCustomerRegistrationTypeExtension
+        tags:
+           - { name: form.type_extension, extended_type: Sylius\Bundle\CoreBundle\Form\Type\Customer\CustomerRegistrationType, priority: -5 }
+    app.newsletter.form.type:
+        class: App\Form\Extension\NewsletterTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Sylius\Bundle\ResourceBundle\Form\Type\DefaultResourceType, priority: -5 }
+    app.form.extension.type.customer_profile:
+        class: App\Form\Extension\MyCustomerProfileTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Sylius\Bundle\CustomerBundle\Form\Type\CustomerProfileType}
+
+    app.listener.admin.menu_builder:
+        class: App\Menu\AdminMenuListener
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
+
+sylius_grid:
+    grids:
+        app_admin_newsletter:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Entity\Newsletter\Newsletter
+            fields:
+                subject:
+                    type: string
+                    label: sylius.ui.name
+            #                content:
+            #                    type: string
+            #                    label: sylius.ui.description
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+
+sylius_resource:
+    resources:
+        app.newsletter:
+            driver: doctrine/orm
+            classes:
+                model: App\Entity\Newsletter\Newsletter
